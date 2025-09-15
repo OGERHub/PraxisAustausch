@@ -3,14 +3,14 @@ title: "Übung 1"
 subtitle: "über das unbestimmte"
 author: Autor
 date: "2025-08-30"
-title-block-banner: images/freiraeume-sp.jpg
+title-block-banner: ../images/freiraeume-sp.jpg
 title-block-banner-color: black 
 #resource-path: ["..", "images", "."]  # darf im übergeordneten Ordner suchen
 
 format-links: [html, hikmah-pdf, docx]   # Link-Namen müssen den Formatkeys entsprechen
 format:
   html: { toc: true, toc-depth: 2, code-fold: true, number-sections: false }
-  pdf: default
+  pdf: default                   # Standard-PDF (ohne Extras)
   docx: default                  # Standard-DOCX (ohne Extras)
 ---
 
@@ -39,9 +39,9 @@ Die beiden Beispielabbildungen stehen nebeneinander; in Texten kann darauf mit @
 
 ::: {#fig-cols layout-ncol=2}
 
-![Beispielbild A](images/bayern-religion-sp.jpg){#fig-a}
+![Beispielbild A](../images/bayern-religion-sp.jpg){#fig-a}
 
-![Beispielbild B](images/bayern-religion2-sp.jpg){#fig-b}
+![Beispielbild B](../images/bayern-religion2-sp.jpg){#fig-b}
 
 Famous Elephants
 :::
@@ -65,7 +65,7 @@ Phasellus sit amet nunc at turpis luctus posuere. Donec ullamcorper, purus nec v
 - Grenzen benannt?
 :::
 ::: {.g-col-5}
-![](images/header.jpg){#fig-skizze}
+![](../images/header.jpg){#fig-skizze}
 :::
 :::
 
@@ -95,7 +95,7 @@ Kurzer Text.
 :::
 ::: {.column width="33%"}
 #### Mini-Kasten B
-![Amazonas in Hessen](images/gisma-11.jpg)
+![Amazonas in Hessen](../images/gisma-11.jpg)
 :::
 ::: {.column width="33%"}
 #### Mini-Kasten C
