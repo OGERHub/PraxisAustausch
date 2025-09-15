@@ -3,11 +3,12 @@ name: Quarto build → docs on main
 on:
   push:
     branches: [main]
-    paths-ignore: ["docs/**"]
+    paths-ignore:
+      - "docs/**"              # verhindert, dass der Bot-Commit in docs/ den Job erneut triggert
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write              # wir committen die gebaute Site zurück auf main
 
 concurrency:
   group: "quarto-build-docs"
@@ -15,15 +16,21 @@ concurrency:
 
 jobs:
   build-commit:
-    if: github.actor != 'github-actions[bot]'
+    if: github.actor != 'github-actions[bot]'   # Sicherheitsgurt gegen Loops
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - uses: quarto-dev/quarto-actions/setup@v2
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        # with:
+        #   version: "1.5.57"   # optional pin
 
-      # Clean docs, CNAME/.nojekyll bewahren
+      # Clean: docs/ leeren, CNAME/.nojekyll behalten
       - name: Clean docs/
         run: |
           mkdir -p docs
@@ -33,29 +40,27 @@ jobs:
           [ -f /tmp/CNAME ] && mv /tmp/CNAME docs/CNAME || true
           [ -f /tmp/.nojekyll ] && mv /tmp/.nojekyll docs/.nojekyll || true
 
-      - name: Render (HTML only) with CI profile
-        env: { QUARTO_PROFILE: ci }
+      # Render: Projekt mit CI-Profil bauen (schreibt nach docs/)
+      - name: Render project (HTML only) with CI profile
+        env:
+          QUARTO_PROFILE: ci
         run: |
           echo "== Effective CI config =="
           quarto inspect . --profile ci | sed -n '/^project:/,/^[^ ]/p'
           echo "== Render =="
           quarto render . --to html --log-level=DEBUG
 
-      - name: Verify output / diagnose
+      # Verify: index.html muss existieren, sonst Fehler (vermeidet 404)
+      - name: Verify output
         run: |
-          echo "== List outputs =="
           ls -alh docs || true
-          ls -alh _site || true
-          if [ -f _site/index.html ] && [ ! -f docs/index.html ]; then
-            echo "::warning ::Quarto hat nach _site/ gerendert (Profil ignoriert?) – kopiere nach docs/"
-            rsync -a --delete _site/ docs/
-          fi
           if [ ! -f docs/index.html ]; then
             echo "::error ::docs/index.html fehlt – Pages würde 404 zeigen."
             exit 1
           fi
           [ -f docs/.nojekyll ] || touch docs/.nojekyll
 
+      # Commit: gebaute Site in docs/ zurück auf main
       - name: Commit built site into docs/
         run: |
           git config user.name  "github-actions[bot]"
