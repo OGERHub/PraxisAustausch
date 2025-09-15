@@ -7,6 +7,8 @@ _freeze/                 # Freeze-Cache (nur committen, wenn bewusst gewollt)
 
 # Wenn du NICHT aus docs/ publishst (CI → gh-pages), dann auskommentieren:
 docs/
+_site/
+
 
 # --- R / RStudio ---
 .Rproj.user/

@@ -3,34 +3,24 @@ name: Quarto build → docs on main
 on:
   push:
     branches: [main]
-    # verhindert Re-Trigger durch den Bot-Commit in docs/
-    paths-ignore:
-      - "docs/**"
+    paths-ignore: ["docs/**"]   # verhindert Re-Trigger durch Bot-Commit
   workflow_dispatch:
 
 permissions:
-  contents: write   # wir committen ins Repo
+  contents: write                # wir committen ins Repo
 
 jobs:
   build-commit:
-    # zusätzliche Sicherung gegen Endlosschleifen
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
 
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-        # with:
-        #   version: "1.5.57"   # optional pin
+      - uses: quarto-dev/quarto-actions/setup@v2
 
-      # Wichtig: nur HTML bauen (kein LaTeX/TinyTeX nötig)
-      - name: Render site (HTML only)
-        run: quarto render --to html
+      - name: Render site (HTML only) with CI profile
+        run: QUARTO_PROFILE=ci quarto render --to html
 
       - name: Commit built site into docs/
         run: |
