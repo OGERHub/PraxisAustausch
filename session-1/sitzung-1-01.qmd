@@ -5,20 +5,16 @@ author: Autor
 date: "2025-08-30"
 title-block-banner: images/freiraeume-sp.jpg
 title-block-banner-color: black 
-resource-path: ["..", "images", "."]  # darf im übergeordneten Ordner suchen
+#resource-path: ["..", "images", "."]  # darf im übergeordneten Ordner suchen
 
 format-links: [html, hikmah-pdf, docx]   # Link-Namen müssen den Formatkeys entsprechen
 format:
-  html:
-    toc: true
-    toc-depth: 2
-    code-fold: true
-    number-sections: false
-  hikmah-pdf:
-    keep-tex: true                       
+  html: { toc: true, toc-depth: 2, code-fold: true, number-sections: false }
+  pdf:
     toc: true
     number-sections: false
-  docx: default                            # Standard-DOCX (ohne Extras)
+    pdf-engine: xelatex  # oder lualatex
+  docx: default                   # Standard-DOCX (ohne Extras)
 ---
 
 ## Was wir lernen
