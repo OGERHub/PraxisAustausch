@@ -20,5 +20,5 @@ comments: false
 
 ![](//images/climatroof-sp.jpg)
 
-# Welcome to the course-template
+# Willkommen im Kurs-Template
 
