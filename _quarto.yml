@@ -47,7 +47,7 @@ website:
     right:
       - icon: chat-left-text-fill
         text: Interne Lernplattform
-        href: https://ilias.uni-koeln.de/login.php
+        href: https://www.ilias.uni-koeln.de/ilias/login.php?client_id=uk&cmd=force_login&lang=de
 
   sidebar:
     pinned: true
