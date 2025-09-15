@@ -74,8 +74,10 @@ format:
   html:
     theme:
       light: lumen
-      dark: [lumen, css/theme-dark.scss]
-    css: css/styles.css
+      dark:
+        - lumen
+        - css/theme-dark.scss
+#    css: css/styles.css
     toc: true
     code-copy: true
     code-background: true

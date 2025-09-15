@@ -33,7 +33,7 @@ citation: true
 
 ## Kurzüberblick
 
-Diese Seite zeigt **Zitate** [@Freericks2017], Fußnoten^[Kurze Fußnote als Beispiel.], Callouts, Querverweise auf Abbildungen (siehe @fig-bild) und einfache Listen.
+Diese Seite zeigt **Zitate** [@Freericks2017], Fußnoten^[Kurze Fußnote als Beispiel.], Callouts und einfache Listen.
 
 
 ## Aufzählungen
