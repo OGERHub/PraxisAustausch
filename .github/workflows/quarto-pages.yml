@@ -40,10 +40,10 @@ jobs:
         run: |
           quarto render . --to docx --log-level=INFO
 
-      - name: Render PDF (hikmah-pdf, profile=ci)
+      - name: Render PDF (pdf, profile=ci)
         env: { QUARTO_PROFILE: ci }
         run: |
-          quarto render . --to hikmah-pdf --log-level=INFO
+          quarto render . --to pdf --log-level=INFO
 
       # ── Sanity-Check & Commit nur der Website-Ausgabe ───────────────────────
       - name: Check docs has index.html
