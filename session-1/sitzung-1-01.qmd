@@ -1,5 +1,5 @@
 ---
-title: "Sitzung 1"
+title: "Übung 1"
 subtitle: "über das unbestimmte"
 author: Autor
 date: "2025-08-30"
