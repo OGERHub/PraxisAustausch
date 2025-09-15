@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write              # wir committen ins Repo
+  contents: write
 
 concurrency:
   group: "quarto-build-docs"
@@ -16,45 +16,45 @@ concurrency:
 
 jobs:
   build-commit:
-    if: github.actor != 'github-actions[bot]'   # Sicherheitsgurt gegen Loops
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: { fetch-depth: 0 }
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      # --- CLEAN: immer frisches docs/ (CNAME/.nojekyll werden geschont) ---
+      # Clean docs/, aber CNAME/.nojekyll erhalten
       - name: Clean docs/
         run: |
           mkdir -p docs
-          # preserve CNAME/.nojekyll if present
           [ -f docs/CNAME ] && cp docs/CNAME /tmp/CNAME || true
           [ -f docs/.nojekyll ] && cp docs/.nojekyll /tmp/.nojekyll || true
           rm -rf docs/*
           [ -f /tmp/CNAME ] && mv /tmp/CNAME docs/CNAME || true
           [ -f /tmp/.nojekyll ] && mv /tmp/.nojekyll docs/.nojekyll || true
 
-      # Optional: Quarto-eigenes Clean mit CI-Profil
-      - name: Quarto clean (ci profile)
-        run: QUARTO_PROFILE=ci quarto clean || true
-
-      # --- RENDER: Projekt explizit rendern (inkl. index.qmd) ---
-      - name: Render site (HTML only) with CI profile
+      # Profile: 'ci' erzwingt output-dir=docs (siehe _quarto-profile-ci.yml)
+      - name: Render project (HTML only) with CI profile
         run: |
+          echo "Using QUARTO_PROFILE=ci"
+          QUARTO_PROFILE=ci quarto inspect . --profile ci | sed -n '/^project:/,/^[^ ]/p'
           QUARTO_PROFILE=ci quarto render . --to html --log-level=DEBUG
 
-      # Debug: sehe, ob index.html entstanden ist
-      - name: Inspect output (debug)
+      # Harte Prüfung: index.html muss da sein, sonst Fehler
+      - name: Verify output
         run: |
           ls -alh docs || true
-          find docs -maxdepth 1 -name "index.html" -print || true
+          if [ ! -f docs/index.html ]; then
+            echo "::error ::docs/index.html fehlt – Pages zeigt 404."
+            exit 1
+          fi
+          # .nojekyll sicherstellen (hilft bei Unterstrich-Pfaden)
+          [ -f docs/.nojekyll ] || touch docs/.nojekyll
 
-      # --- COMMIT: baute Site zurück nach main ---
       - name: Commit built site into docs/
         run: |
           git config user.name  "github-actions[bot]"
