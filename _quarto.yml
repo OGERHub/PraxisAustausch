@@ -20,7 +20,7 @@ website:
   title: "your title"
   site-url: https://your-github-name.github.io/your-repo
   repo-url: https://github.com/your-github-name/your-repo
-  repo-actions: [source, issue, edit]
+  repo-actions: [] #[source, issue, edit]
   page-navigation: true
   bread-crumbs: false
   open-graph: true
