@@ -27,12 +27,7 @@ jobs:
           quarto --version
           tlmgr --version || true
 
-      # Falls die Hikmah-Extension NICHT im Repo committet ist:
-      - name: Ensure hikmah extension (no commit)
-        run: |
-          if ! quarto list extensions | grep -q 'andrewheiss/hikmah-academic-quarto'; then
-            quarto install extension andrewheiss/hikmah-academic-quarto
-          fi
+
 
       # ── Render separat pro Format ─────────────────────────────────────────────
       - name: Render HTML (profile=ci)
