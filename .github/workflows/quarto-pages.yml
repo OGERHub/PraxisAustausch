@@ -28,15 +28,33 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
+      # --- CLEAN: immer frisches docs/ (CNAME/.nojekyll werden geschont) ---
+      - name: Clean docs/
+        run: |
+          mkdir -p docs
+          # preserve CNAME/.nojekyll if present
+          [ -f docs/CNAME ] && cp docs/CNAME /tmp/CNAME || true
+          [ -f docs/.nojekyll ] && cp docs/.nojekyll /tmp/.nojekyll || true
+          rm -rf docs/*
+          [ -f /tmp/CNAME ] && mv /tmp/CNAME docs/CNAME || true
+          [ -f /tmp/.nojekyll ] && mv /tmp/.nojekyll docs/.nojekyll || true
+
+      # Optional: Quarto-eigenes Clean mit CI-Profil
+      - name: Quarto clean (ci profile)
+        run: QUARTO_PROFILE=ci quarto clean || true
+
+      # --- RENDER: Projekt explizit rendern (inkl. index.qmd) ---
       - name: Render site (HTML only) with CI profile
         run: |
           QUARTO_PROFILE=ci quarto render . --to html --log-level=DEBUG
 
+      # Debug: sehe, ob index.html entstanden ist
       - name: Inspect output (debug)
         run: |
           ls -alh docs || true
           find docs -maxdepth 1 -name "index.html" -print || true
 
+      # --- COMMIT: baute Site zurück nach main ---
       - name: Commit built site into docs/
         run: |
           git config user.name  "github-actions[bot]"
