@@ -40,11 +40,11 @@ Die beiden Beispielabbildungen stehen nebeneinander; in Texten kann darauf mit @
 
 ::: {#fig-cols layout-ncol=2}
 
-![Beispielbild A](../images/bayern-religion-sp.jpg){#fig-a}
+![Sternsinger: Kinder in der Einübung aktiver Inklusion](../images/bayern-religion-sp.jpg){#fig-a}
 
-![Beispielbild B](../images/bayern-religion2-sp.jpg){#fig-b}
+![Das Weihnachtsbier: Kinder in der Einübung zentraler Kulturtechniken](../images/bayern-religion2-sp.jpg){#fig-b}
 
-Famous Elephants
+
 :::
 
 Textbezug: Die Gottesfürchtigkeit in @fig-a geht Hand in Hand mit tiefreligiösen Wahrnehmung des Weihnachtsfestes in @fig-b. Kinder sind eine tragende Säule der Glaubwürdigkeit
