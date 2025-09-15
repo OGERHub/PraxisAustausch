@@ -24,7 +24,7 @@ website:
   page-navigation: true
   bread-crumbs: false
   open-graph: true
-  favicon: images/your-logo.png
+  favicon:  images/banner.png  
   image: images/banner.png     
   page-footer: 'your organisation (202x) [Impressum]({{< href "base/impressum.qmd" >}})'
   
