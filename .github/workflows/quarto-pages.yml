@@ -27,7 +27,7 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      # Clean docs/, aber CNAME/.nojekyll erhalten
+      # Clean: alte Artefakte raus, CNAME/.nojekyll bewahren
       - name: Clean docs/
         run: |
           mkdir -p docs
@@ -37,22 +37,22 @@ jobs:
           [ -f /tmp/CNAME ] && mv /tmp/CNAME docs/CNAME || true
           [ -f /tmp/.nojekyll ] && mv /tmp/.nojekyll docs/.nojekyll || true
 
-      # Profile: 'ci' erzwingt output-dir=docs (siehe _quarto-profile-ci.yml)
       - name: Render project (HTML only) with CI profile
+        env:
+          QUARTO_PROFILE: ci
         run: |
-          echo "Using QUARTO_PROFILE=ci"
-          QUARTO_PROFILE=ci quarto inspect . --profile ci | sed -n '/^project:/,/^[^ ]/p'
-          QUARTO_PROFILE=ci quarto render . --to html --log-level=DEBUG
+          echo "Effective project config (CI):"
+          quarto inspect . --profile ci | sed -n '/^project:/,/^[^ ]/p'
+          quarto render . --to html --log-level=DEBUG
 
-      # Harte Prüfung: index.html muss da sein, sonst Fehler
       - name: Verify output
         run: |
           ls -alh docs || true
           if [ ! -f docs/index.html ]; then
-            echo "::error ::docs/index.html fehlt – Pages zeigt 404."
+            echo "::error ::docs/index.html fehlt – Pages würde 404 zeigen."
             exit 1
           fi
-          # .nojekyll sicherstellen (hilft bei Unterstrich-Pfaden)
+          # sicherstellen, dass Jekyll nichts blockiert
           [ -f docs/.nojekyll ] || touch docs/.nojekyll
 
       - name: Commit built site into docs/

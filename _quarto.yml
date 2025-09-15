@@ -1,18 +1,18 @@
 project:
   type: website
   output-dir: _site     # <- lokal bauen wir hierhin (nicht docs)
-  render:
-    - index.qmd
-    - base/*.qmd
-    - session-1/*.qmd
-    - session-2/*.qmd
-    # - session-3/*.qmd
-    # - session-4/*.qmd
-    # - session-5/*.qmd
-    # - session-6/*.qmd
-    # - session-7/*.qmd
-    # - session-8/*.qmd
-    # - session-9/*.qmd  
+  # render:
+  #   - index.qmd
+  #   - base/*.qmd
+  #   - session-1/*.qmd
+  #   - session-2/*.qmd
+  #   # - session-3/*.qmd
+  #   # - session-4/*.qmd
+  #   # - session-5/*.qmd
+  #   # - session-6/*.qmd
+  #   # - session-7/*.qmd
+  #   # - session-8/*.qmd
+  #   # - session-9/*.qmd  
 # execute:
 #   freeze: false
 
