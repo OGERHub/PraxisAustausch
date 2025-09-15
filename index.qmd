@@ -1,10 +1,5 @@
 ---
 title: ""
-open-graph:
-  description: "Most of the time, data matters more than the model. But what is reality without model?"
-  image: /images/banner.png
-
-
 comments: false
 ---
 
@@ -19,7 +14,7 @@ comments: false
 
 
 
-![](//images/climatroof-sp.jpg)
+![](images/banner.png)
 
 # Willkommen im Kurs-Template
 
