@@ -72,7 +72,7 @@ Phasellus sit amet nunc at turpis luctus posuere. Donec ullamcorper, purus nec v
 - Grenzen benannt?
 :::
 ::: {.g-col-5}
-![](../images/notebook.jpg){#fig-skizze}
+![](../images/header.jpg){#fig-skizze}
 :::
 :::
 
