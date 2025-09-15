@@ -21,9 +21,11 @@ website:
   #favicon:  images/banner.png  
   image: images/banner.png     
   page-footer:
-    left: '© your organisation (2025)'
-    right: '[Impressum](../base/impressum.qmd)'
-    border: true
+    center: |
+      your organisation (<span class="year"></span>) —
+      <a class="impressum-link" href="#">Impressum</a>
+
+
   
   search:
     location: navbar
@@ -81,6 +83,6 @@ format:
     link-external-newwindow: true
     link-external-filter: '^(?:http:|https:)\/\/www\.quarto\.org\/custom'
     md-extensions: +fenced_divs+bracketed_spans+link_attributes  # stabilisiert :::-Blöcke
-    # include-after-body: _footer-year.html
+    include-after-body: ["_footer-year.html"]
 lang: de
    
