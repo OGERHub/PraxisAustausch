@@ -5,6 +5,8 @@ author: Autor
 date: "2025-08-30"
 title-block-banner: ../images/freiraeume-sp.jpg
 title-block-banner-color: black 
+resource-path: ["..", "images", "."]  # darf im übergeordneten Ordner suchen
+
 format-links: [html, hikmah-pdf, docx]   # Link-Namen müssen den Formatkeys entsprechen
 format:
   html:
