@@ -10,11 +10,8 @@ title-block-banner-color: black
 format-links: [html, hikmah-pdf, docx]   # Link-Namen müssen den Formatkeys entsprechen
 format:
   html: { toc: true, toc-depth: 2, code-fold: true, number-sections: false }
-  pdf:
-    toc: true
-    number-sections: false
-    pdf-engine: xelatex  # oder lualatex
-  docx: default                   # Standard-DOCX (ohne Extras)
+  pdf: default
+  docx: default                  # Standard-DOCX (ohne Extras)
 ---
 
 ## Was wir lernen
