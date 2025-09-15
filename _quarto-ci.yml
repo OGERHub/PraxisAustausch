@@ -1,5 +1,12 @@
+# _quarto-ci.yml  (liegt im Repo-Root)
 project:
-  output-dir: docs        # CI schreibt hierhin
-  render: ["." ]          # IM CI ALLES rendern (überschreibt evtl. Listen)
+  output-dir: docs
+  render: ["."]
+resources:
+  - images/**
+resource-path:
+  - .
+  - ..
+  - images
 execute:
-  freeze: false           # immer frischer Build
+  freeze: false
