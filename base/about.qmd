@@ -1,7 +1,8 @@
 ---
 title: ""
-comments: false
 ---
 ![](/images/Adam-Savage-Quotes-3.jpg)
 
 # Über diesen Kurs
+
+gibts was zu erzählen
