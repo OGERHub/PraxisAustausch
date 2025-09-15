@@ -1,13 +1,13 @@
-name: Quarto → docs (HTML + DOCX/ODT/PDF)
+name: Quarto → docs (HTML + DOCX/ODT + hikmah-pdf)
 
 on:
   push:
     branches: [main]
-    paths-ignore: ["docs/**"]      # verhindert Re-Trigger durch Bot-Commit
+    paths-ignore: ["docs/**"]     # verhindert Re-Trigger durch den Bot-Commit
   workflow_dispatch:
 
 permissions:
-  contents: write                  # wir committen nach main
+  contents: write                 # wir committen die gebaute Site zurück auf main
 
 concurrency:
   group: "quarto-build-docs"
@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   build-commit:
-    if: github.actor != 'github-actions[bot]'   # Sicherheitsgurt gegen Loops
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
 
     steps:
@@ -24,18 +24,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Quarto (+TinyTeX for PDF)
+      - name: Set up Quarto (incl. TinyTeX for PDF)
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          tinytex: true            # installiert TinyTeX für PDF
+          tinytex: true
 
-      # Optional: Helfer für SVG→PDF & Biber (nur wenn gebraucht)
-      - name: Install extras (optional)
+      - name: Install extras (biber/svg → pdf, optional but useful)
         run: |
           sudo apt-get update
-          sudo apt-get install -y librsvg2-bin biber ghostscript || true
+          sudo apt-get install -y biber librsvg2-bin ghostscript || true
 
-      # Clean docs/, CNAME/.nojekyll erhalten
+      # docs/ leeren, CNAME/.nojekyll bewahren
       - name: Clean docs/
         run: |
           mkdir -p docs
@@ -45,7 +44,14 @@ jobs:
           [ -f /tmp/CNAME ] && mv /tmp/CNAME docs/CNAME || true
           [ -f /tmp/.nojekyll ] && mv /tmp/.nojekyll docs/.nojekyll || true
 
-      # ---------- Render: immer mit CI-Profil (schreibt nach docs/) ----------
+      # Mit CI-Profil rendern (setzt output-dir: docs). Voraussetzung: _quarto-ci.yml im Repo-Root.
+      - name: Inspect effective project config (CI)
+        env:
+          QUARTO_PROFILE: ci
+        run: |
+          echo "== Effective CI project block =="
+          quarto inspect . --profile ci | sed -n '/^project:/,/^[^ ]/p'
+
       - name: Render HTML
         env: { QUARTO_PROFILE: ci }
         run: quarto render . --to html --log-level=DEBUG
@@ -54,25 +60,28 @@ jobs:
         env: { QUARTO_PROFILE: ci }
         run: quarto render . --to docx --log-level=DEBUG
 
-      - name: Render PDF
-        env: { QUARTO_PROFILE: ci }
-        run: quarto render . --to pdf --log-level=DEBUG
 
-      # Prüfen & .nojekyll sicherstellen
+
+      - name: Render hikmah PDF
+        env: { QUARTO_PROFILE: ci }
+        run: quarto render . --to hikmah-pdf --log-level=DEBUG
+
       - name: Verify output
         run: |
-          ls -alh docs | sed -n '1,200p'
-          test -f docs/index.html || (echo "::error ::docs/index.html fehlt – Pages würde 404 zeigen." && exit 1)
+          ls -alh docs || true
+          if [ ! -f docs/index.html ]; then
+            echo "::error ::docs/index.html fehlt – Pages würde 404 zeigen."
+            exit 1
+          fi
           [ -f docs/.nojekyll ] || touch docs/.nojekyll
 
-      # Commit zurück auf main
       - name: Commit docs/
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A -f docs
           if ! git diff --cached --quiet; then
-            git commit -m "build: site (html+docx+pdf) to docs [skip ci]"
+            git commit -m "build: site (html+docx+hikmah-pdf) to docs [skip ci]"
             git push
           else
             echo "No changes to commit."
