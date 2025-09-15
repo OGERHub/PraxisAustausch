@@ -1,0 +1,6 @@
+project:
+  output-dir: docs        # CI schreibt nach docs/
+  # optional: im CI ALLES bauen (statt Render-Liste aus _quarto.yml)
+  # render: ["."]
+execute:
+  freeze: false
