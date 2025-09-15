@@ -23,5 +23,5 @@ comments: false
 
 # Willkommen im Kurs-Template
 
-Alles weitere auf der Quarto Seite
+Alles weitere auf der [Quarto Seite](https://quarto.org/docs/websites/)
 
