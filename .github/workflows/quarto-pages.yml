@@ -21,6 +21,8 @@ jobs:
           tinytex: true
 
       - name: Show versions
+        env:
+          QUARTO_NON_INTERACTIVE: "true"
         run: |
           quarto --version
           tlmgr --version || true
