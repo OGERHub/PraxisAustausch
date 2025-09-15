@@ -21,12 +21,12 @@ website:
     location: navbar
     type: textbox
 
-  comments:
-    utterances:
-      repo: your-github-name/your-repo
-      issue-term: pathname      # Zuordnung pro Seite
-      label: "comments"         # optional
-      theme: github-light       # optional
+  # comments:
+  #   utterances:
+  #     repo: your-github-name/your-repo
+  #     issue-term: pathname      # Zuordnung pro Seite
+  #     label: "comments"         # optional
+  #     theme: github-light       # optional
 
   navbar:
     logo: images/your-logo.png
