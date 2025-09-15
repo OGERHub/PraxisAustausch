@@ -27,22 +27,20 @@ jobs:
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-        # with:
-        #   version: "1.5.57"   # optional pin
 
-      # Nur HTML bauen (kein LaTeX im CI)
       - name: Render site (HTML only) with CI profile
-        run: QUARTO_PROFILE=ci quarto render --to html
+        run: |
+          QUARTO_PROFILE=ci quarto render . --to html --log-level=DEBUG
 
-      # Debug: zeigt, *warum* docs ggf. ignoriert wird
-      - name: Debug ignore rule (optional)
-        run: git check-ignore -v docs || echo "docs is not ignored"
+      - name: Inspect output (debug)
+        run: |
+          ls -alh docs || true
+          find docs -maxdepth 1 -name "index.html" -print || true
 
       - name: Commit built site into docs/
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # Falls docs/ irgendwo ignoriert ist: trotzdem adden
           git add -A -f docs
           if ! git diff --cached --quiet; then
             git commit -m "build: render site to docs [skip ci]"
