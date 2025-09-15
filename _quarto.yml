@@ -15,8 +15,8 @@ website:
   open-graph: true
   favicon: images/your-logo.png
   image: images/your-logo.png
-  page-footer: "your organisation (202x) [Impressum](base/impressum.qmd)"
-
+  page-footer: 'your organisation (202x) [Impressum]({{< href "base/impressum.qmd" >}})'
+  
   search:
     location: navbar
     type: textbox
