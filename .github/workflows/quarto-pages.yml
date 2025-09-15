@@ -1,47 +1,45 @@
-name: Build & Deploy (Quarto)
+name: Quarto build → docs on main
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
+    # verhindert Re-Trigger durch den Bot-Commit in docs/
     paths-ignore:
-      - "docs/**"     # verhindert Loops, da wir docs nicht committen
+      - "docs/**"
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "quarto-pages"
-  cancel-in-progress: true
+  contents: write   # wir committen ins Repo
 
 jobs:
-  build:
+  build-commit:
+    # zusätzliche Sicherung gegen Endlosschleifen
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          # version: "1.5.57"   # optional pin
+        # with:
+        #   version: "1.5.57"   # optional pin
 
-      # Falls du irgendwo PDF-Format aktiviert hast, beschränke sicherheitshalber auf HTML:
+      # Wichtig: nur HTML bauen (kein LaTeX/TinyTeX nötig)
       - name: Render site (HTML only)
         run: quarto render --to html
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./docs   # passt zu deinem output-dir
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Commit built site into docs/
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A docs
+          if ! git diff --cached --quiet; then
+            git commit -m "build: render site to docs [skip ci]"
+            git push
+          else
+            echo "No changes to commit."
+          fi
