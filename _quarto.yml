@@ -3,7 +3,11 @@ project:
   output-dir: _site     # <- lokal bauen wir hierhin (nicht docs)
   resources:
     - images/** 
-resource-path: ["..", ".", "images"]
+  render:
+    - session-1/sitzung-1-01.qmd
+resource-path:
+  - images
+  - .
   # render:
   #   - index.qmd
   #   - base/*.qmd

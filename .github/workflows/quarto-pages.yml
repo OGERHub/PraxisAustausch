@@ -1,88 +1,64 @@
-name: Quarto → docs (HTML + DOCX/ODT + hikmah-pdf)
+name: Quarto Build (HTML + DOCX + PDF)
 
 on:
   push:
-    branches: [main]
-    paths-ignore: ["docs/**"]     # verhindert Re-Trigger durch den Bot-Commit
+    branches: [ main ]
   workflow_dispatch:
 
-permissions:
-  contents: write                 # wir committen die gebaute Site zurück auf main
-
-concurrency:
-  group: "quarto-build-docs"
-  cancel-in-progress: true
-
 jobs:
-  build-commit:
-    if: github.actor != 'github-actions[bot]'
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Set up Quarto (incl. TinyTeX for PDF)
+      - name: Set up Quarto + TinyTeX
         uses: quarto-dev/quarto-actions/setup@v2
         with:
           tinytex: true
 
-      - name: Install extras (biber/svg → pdf, optional but useful)
+      - name: Show versions
         run: |
-          sudo apt-get update
-          sudo apt-get install -y biber librsvg2-bin ghostscript || true
+          quarto --version
+          tlmgr --version || true
 
-      # docs/ leeren, CNAME/.nojekyll bewahren
-      - name: Clean docs/
+      # Falls die Hikmah-Extension NICHT im Repo committet ist:
+      - name: Ensure hikmah extension (no commit)
         run: |
-          mkdir -p docs
-          [ -f docs/CNAME ] && cp docs/CNAME /tmp/CNAME || true
-          [ -f docs/.nojekyll ] && cp docs/.nojekyll /tmp/.nojekyll || true
-          rm -rf docs/*
-          [ -f /tmp/CNAME ] && mv /tmp/CNAME docs/CNAME || true
-          [ -f /tmp/.nojekyll ] && mv /tmp/.nojekyll docs/.nojekyll || true
-
-      # Mit CI-Profil rendern (setzt output-dir: docs). Voraussetzung: _quarto-ci.yml im Repo-Root.
-      - name: Inspect effective project config (CI)
-        env:
-          QUARTO_PROFILE: ci
-        run: |
-          echo "== Effective CI project block =="
-          quarto inspect . --profile ci | sed -n '/^project:/,/^[^ ]/p'
-
-      - name: Render HTML
-        env: { QUARTO_PROFILE: ci }
-        run: quarto render . --to html --log-level=DEBUG
-
-      - name: Render DOCX
-        env: { QUARTO_PROFILE: ci }
-        run: quarto render . --to docx --log-level=DEBUG
-
-
-
-      - name: Render hikmah PDF
-        env: { QUARTO_PROFILE: ci }
-        run: quarto render . --to hikmah-pdf --log-level=DEBUG
-
-      - name: Verify output
-        run: |
-          ls -alh docs || true
-          if [ ! -f docs/index.html ]; then
-            echo "::error ::docs/index.html fehlt – Pages würde 404 zeigen."
-            exit 1
+          if ! quarto list extensions | grep -q 'andrewheiss/hikmah-academic-quarto'; then
+            quarto install extension andrewheiss/hikmah-academic-quarto
           fi
-          [ -f docs/.nojekyll ] || touch docs/.nojekyll
 
-      - name: Commit docs/
+      # ── Render separat pro Format ─────────────────────────────────────────────
+      - name: Render HTML (profile=ci)
+        env: { QUARTO_PROFILE: ci }
+        run: |
+          quarto render . --to html --log-level=INFO
+
+      - name: Render DOCX (profile=ci)
+        env: { QUARTO_PROFILE: ci }
+        run: |
+          quarto render . --to docx --log-level=INFO
+
+      - name: Render PDF (hikmah-pdf, profile=ci)
+        env: { QUARTO_PROFILE: ci }
+        run: |
+          quarto render . --to hikmah-pdf --log-level=INFO
+
+      # ── Sanity-Check & Commit nur der Website-Ausgabe ───────────────────────
+      - name: Check docs has index.html
+        run: |
+          ls -alh docs || (echo "docs/ missing" && exit 1)
+          test -f docs/index.html || (echo "docs/index.html missing" && exit 1)
+
+      - name: Commit & push docs
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -f docs
-          if ! git diff --cached --quiet; then
-            git commit -m "build: site (html+docx+hikmah-pdf) to docs [skip ci]"
-            git push
-          else
-            echo "No changes to commit."
-          fi
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f docs
+          git commit -m "CI: render HTML+DOCX+PDF to docs [skip ci]" || echo "Nothing to commit"
+          git push
