@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: _site     # <- lokal bauen wir hierhin (nicht docs)
+  resources:
+    - images/**            
   # render:
   #   - index.qmd
   #   - base/*.qmd
