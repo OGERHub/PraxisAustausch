@@ -14,7 +14,8 @@ format:
     toc-depth: 2
     code-fold: true
     number-sections: false
-  hikmah-pdf:                       
+  hikmah-pdf:
+    keep-tex: true                       
     toc: true
     number-sections: false
   docx: default                            # Standard-DOCX (ohne Extras)
