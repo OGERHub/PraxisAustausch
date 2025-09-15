@@ -45,9 +45,9 @@ Die beiden Beispielabbildungen stehen nebeneinander; in Texten kann darauf mit @
 
 ::: {#fig-cols layout-ncol=2}
 
-![Beispielbild A](../images/bayern-religion-sp.jpg){#fig-a}
+![Beispielbild A](images/bayern-religion-sp.jpg){#fig-a}
 
-![Beispielbild B](../images/bayern-religion2-sp.jpg){#fig-b}
+![Beispielbild B](images/bayern-religion2-sp.jpg){#fig-b}
 
 Famous Elephants
 :::
@@ -71,7 +71,7 @@ Phasellus sit amet nunc at turpis luctus posuere. Donec ullamcorper, purus nec v
 - Grenzen benannt?
 :::
 ::: {.g-col-5}
-![](../images/notebook.jpg){#fig-skizze}
+![](images/notebook.jpg){#fig-skizze}
 :::
 :::
 
@@ -101,7 +101,7 @@ Kurzer Text.
 :::
 ::: {.column width="33%"}
 #### Mini-Kasten B
-![Amazonas in Hessen](../images/gisma-11.jpg)
+![Amazonas in Hessen](images/gisma-11.jpg)
 :::
 ::: {.column width="33%"}
 #### Mini-Kasten C
