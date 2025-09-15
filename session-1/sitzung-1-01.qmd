@@ -33,7 +33,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in sapien at nisl
 
 ## Bilder in Spalten
 
-Die beiden Beispielabbildungen stehen nebeneinander; in Texten kann darauf mit @fig-a bzw. @fig-b verwiesen werden (z. B. *siehe @fig-a*).
+Die beiden Beispielabbildungen stehen nebeneinander; in Texten kann darauf mit @fig-a bzw. @fig-b verwiesen werden.
 
 
 
@@ -47,7 +47,7 @@ Die beiden Beispielabbildungen stehen nebeneinander; in Texten kann darauf mit @
 Famous Elephants
 :::
 
-Textbezug: Die Struktur in @fig-a wirkt homogener als in @fig-b.
+Textbezug: Die Gottesfürchtigkeit in @fig-a geht Hand in Hand mit tiefreligiösen Wahrnehmung des Weihnachtsfestes in @fig-b. Kinder sind eine tragende Säule der Glaubwürdigkeit
 
 ## Text + Bild in Spalten
 
