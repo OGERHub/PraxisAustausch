@@ -3,8 +3,7 @@ name: Quarto build → docs on main
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - "docs/**"              # verhindert Re-Trigger durch Bot-Commit
+    paths-ignore: ["docs/**"]
   workflow_dispatch:
 
 permissions:
@@ -18,16 +17,13 @@ jobs:
   build-commit:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check out repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
 
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
+      - uses: quarto-dev/quarto-actions/setup@v2
 
-      # Clean: alte Artefakte raus, CNAME/.nojekyll bewahren
+      # Clean docs, CNAME/.nojekyll bewahren
       - name: Clean docs/
         run: |
           mkdir -p docs
@@ -37,22 +33,27 @@ jobs:
           [ -f /tmp/CNAME ] && mv /tmp/CNAME docs/CNAME || true
           [ -f /tmp/.nojekyll ] && mv /tmp/.nojekyll docs/.nojekyll || true
 
-      - name: Render project (HTML only) with CI profile
-        env:
-          QUARTO_PROFILE: ci
+      - name: Render (HTML only) with CI profile
+        env: { QUARTO_PROFILE: ci }
         run: |
-          echo "Effective project config (CI):"
+          echo "== Effective CI config =="
           quarto inspect . --profile ci | sed -n '/^project:/,/^[^ ]/p'
+          echo "== Render =="
           quarto render . --to html --log-level=DEBUG
 
-      - name: Verify output
+      - name: Verify output / diagnose
         run: |
+          echo "== List outputs =="
           ls -alh docs || true
+          ls -alh _site || true
+          if [ -f _site/index.html ] && [ ! -f docs/index.html ]; then
+            echo "::warning ::Quarto hat nach _site/ gerendert (Profil ignoriert?) – kopiere nach docs/"
+            rsync -a --delete _site/ docs/
+          fi
           if [ ! -f docs/index.html ]; then
             echo "::error ::docs/index.html fehlt – Pages würde 404 zeigen."
             exit 1
           fi
-          # sicherstellen, dass Jekyll nichts blockiert
           [ -f docs/.nojekyll ] || touch docs/.nojekyll
 
       - name: Commit built site into docs/
