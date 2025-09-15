@@ -56,3 +56,6 @@ Icon?
 # !docs/**/*.html
 
 /.quarto/
+
+_site/
+
