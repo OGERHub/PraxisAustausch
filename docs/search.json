@@ -1,5 +1,96 @@
 [
   {
+    "objectID": "session-2/sitzung-2-01.html",
+    "href": "session-2/sitzung-2-01.html",
+    "title": "Übung 1",
+    "section": "",
+    "text": "Diese Seite zeigt Zitate (Freericks 2017), Fußnoten1, Callouts, Querverweise auf Abbildungen (siehe ?@fig-bild) und einfache Listen.",
+    "crumbs": [
+      "FAQ",
+      "Kurs-Sitzungen",
+      "Sitzung 2",
+      "Übung 1"
+    ]
+  },
+  {
+    "objectID": "session-2/sitzung-2-01.html#kurzüberblick",
+    "href": "session-2/sitzung-2-01.html#kurzüberblick",
+    "title": "Übung 1",
+    "section": "",
+    "text": "Diese Seite zeigt Zitate (Freericks 2017), Fußnoten1, Callouts, Querverweise auf Abbildungen (siehe ?@fig-bild) und einfache Listen.",
+    "crumbs": [
+      "FAQ",
+      "Kurs-Sitzungen",
+      "Sitzung 2",
+      "Übung 1"
+    ]
+  },
+  {
+    "objectID": "session-2/sitzung-2-01.html#aufzählungen",
+    "href": "session-2/sitzung-2-01.html#aufzählungen",
+    "title": "Übung 1",
+    "section": "Aufzählungen",
+    "text": "Aufzählungen\n\nEin normaler Listeneintrag\nWichtig: klar formulieren\nInline-Code x &lt;- 1 falls nötig\n\n\nErstens\nZweitens\nDrittens",
+    "crumbs": [
+      "FAQ",
+      "Kurs-Sitzungen",
+      "Sitzung 2",
+      "Übung 1"
+    ]
+  },
+  {
+    "objectID": "session-2/sitzung-2-01.html#callouts",
+    "href": "session-2/sitzung-2-01.html#callouts",
+    "title": "Übung 1",
+    "section": "Callouts",
+    "text": "Callouts\n\n\n\n\n\n\nHinweis\n\n\n\nHinweis: Kurze Merkpunkte helfen beim Lesen.\n\n\n\n\n\n\n\n\nWarnung\n\n\n\nAchtung: Prüfe Bildpfade und nutze resource-path für robuste Builds.",
+    "crumbs": [
+      "FAQ",
+      "Kurs-Sitzungen",
+      "Sitzung 2",
+      "Übung 1"
+    ]
+  },
+  {
+    "objectID": "session-2/sitzung-2-01.html#zitate-literatur",
+    "href": "session-2/sitzung-2-01.html#zitate-literatur",
+    "title": "Übung 1",
+    "section": "Zitate & Literatur",
+    "text": "Zitate & Literatur\nEin Parenthese-Zitat (Freericks 2017, 42) und ein narrativer Verweis: Freericks (2020) argumentieren ausführlich zur Planung außerschulischer Lernorte.\n\nBlockzitat für längere, hervorgehobene Passagen – prägnant halten.",
+    "crumbs": [
+      "FAQ",
+      "Kurs-Sitzungen",
+      "Sitzung 2",
+      "Übung 1"
+    ]
+  },
+  {
+    "objectID": "session-2/sitzung-2-01.html#interne-links-im-projekt",
+    "href": "session-2/sitzung-2-01.html#interne-links-im-projekt",
+    "title": "Übung 1",
+    "section": "Interne Links im Projekt",
+    "text": "Interne Links im Projekt\nZum Impressum: Impressum.",
+    "crumbs": [
+      "FAQ",
+      "Kurs-Sitzungen",
+      "Sitzung 2",
+      "Übung 1"
+    ]
+  },
+  {
+    "objectID": "session-2/sitzung-2-01.html#footnotes",
+    "href": "session-2/sitzung-2-01.html#footnotes",
+    "title": "Übung 1",
+    "section": "Fußnoten",
+    "text": "Fußnoten\n\n\nKurze Fußnote als Beispiel.↩︎",
+    "crumbs": [
+      "FAQ",
+      "Kurs-Sitzungen",
+      "Sitzung 2",
+      "Übung 1"
+    ]
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Willkommen im Kurs-Template",

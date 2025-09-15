@@ -713,6 +713,20 @@ This section provides you with an overview of the terms used in this Privacy Pol
 </section>
 
 </main> <!-- /main -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Jahr einsetzen
+  document.querySelectorAll('.year').forEach(function (el) {
+    el.textContent = new Date().getFullYear();
+  });
+
+  // Impressum-Link relativ zum Projekt-Root setzen
+  const offset = document.querySelector('meta[name="quarto:offset"]')?.getAttribute('content') || '';
+  document.querySelectorAll('a.impressum-link').forEach(function (a) {
+    a.setAttribute('href', offset + 'base/impressum.html');
+  });
+});
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1137,14 +1151,14 @@ This section provides you with an overview of the terms used in this Privacy Pol
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© your organisation (2025)</p>
-</div>   
+      &nbsp;
+    </div>   
     <div class="nav-footer-center">
+<p>your organisation (<span class="year"></span>) — <a class="impressum-link" href="#">Impressum</a></p>
+</div>
+    <div class="nav-footer-right">
       &nbsp;
     </div>
-    <div class="nav-footer-right">
-<p><a href="../base/impressum.html">Impressum</a></p>
-</div>
   </div>
 </footer>
 
