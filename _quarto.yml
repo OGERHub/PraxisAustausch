@@ -73,13 +73,21 @@ website:
               - session-2/sitzung-2-02.qmd
 
 format:
+
   html:
     theme:
+    # Theme-Stack: Bootswatch-Basis die SCSS-Overrides
+      # Light: Markenfarben in css/custom.scss setzen ($primary / --brand)
       light: [lumen, css/custom.scss]
-      # wenn du noch ein eigenes dark-Theme hattest, DEIN Override muss zuletzt kommen:
+      # Dark: optional abweichende Farben in css/theme-dark.scss, danach erneut custom.scss
       dark:  [lumen, css/theme-dark.scss, css/custom.scss]
-
+    # Pures CSS (keine Bootstrap-Variablen), für kleine Tweaks nach dem Theme
     css: css/styles.css
+
+# Brandfarbe ändern:
+# - Einheitlich (Light & Dark): in css/custom.scss -> $brand: "#E91E63"; 
+# Danach neu bauen: quarto render
+    
     toc: true
     code-copy: true
     code-background: true

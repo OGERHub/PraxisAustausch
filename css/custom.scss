@@ -1,39 +1,72 @@
+/* =============================================================================
+   custom.scss – Projekt-Branding für HTML-Output
+   -----------------------------------------------------------------------------
+   Zweck:
+     - Setzt die Markenfarbe (Primär- & Linkfarben) und färbt die Navbar
+       für das Bootswatch-Theme „lumen“ – sowohl Light als auch Dark.
+
+   Aktivierung (in _quarto.yml):
+     format:
+       html:
+         theme:
+           light: [lumen, css/custom.scss]
+           dark:  [lumen, css/theme-dark.scss, css/custom.scss]
+         css: css/styles.css
+
+   Nutzung:
+     - Markenfarbe einfach hier im $brand ändern.
+
+   Hinweise:
+     - Wir setzen zusätzlich --bs-primary-rgb, sonst bleibt .bg-primary oft blau.
+     - Wir beeinflussen nur HTML; PDF/DOCX sind unberührt.
+   ========================================================================== */
+
+
 /*-- scss:defaults --*/
-/* Compile-time Bootstrap/Bootswatch Variablen (optional, hilft Lumen die Primärfarbe zu übernehmen) */
-$primary: #FB7171;      // deine Markenfarbe
-$link-color: $primary;
+/* Compile-time Fallbacks für Bootstrap/Bootswatch */
+$brand: #FB7171;     // ← HIER deine Markenfarbe eintragen
+$primary: $brand;
+$link-color: $brand;
+
 
 /*-- scss:rules --*/
-/* Runtime-Overrides mit CSS-Variablen (wirken in light & dark) */
+/* Light-Theme Variablen */
 :root,
 :root[data-bs-theme="light"],
 .quarto-light {
-  --brand: #FB7171;            /* Primärfarbe Light */
+  --brand: #{$brand};
   --bs-primary: var(--brand);
+  /* wichtig: RGB setzen, damit .bg-primary zuverlässig gefärbt wird */
+  --bs-primary-rgb: #{red($brand)}, #{green($brand)}, #{blue($brand)};
   --bs-link-color: var(--brand);
+  --bs-link-hover-color: color-mix(in srgb, var(--brand) 85%, black);
 }
 
+/* Dark-Theme Variablen (ggf. eigene Dark-Markenfarbe wählen) */
 :root[data-bs-theme="dark"],
 .quarto-dark {
-  --brand: #FB7171;            /* ggf. hier andere Dark-Farbe setzen */
+  --brand: #{$brand};
   --bs-primary: var(--brand);
+  --bs-primary-rgb: #{red($brand)}, #{green($brand)}, #{blue($brand)};
   --bs-link-color: var(--brand);
+  --bs-link-hover-color: color-mix(in srgb, var(--brand) 85%, white);
 }
 
-/* Bootswatch/Lumen setzt Navbar blau hart – wir überschreiben das sicher */
+/* Navbar sicher einfärben + gute Lesbarkeit erzwingen */
 .navbar.bg-primary,
 .navbar.navbar-dark.bg-primary,
 .navbar.navbar-light.bg-primary {
   background-color: var(--bs-primary) !important;
   border-color: var(--bs-primary) !important;
+
+  /* Lesefarben über Navbar-Variablen */
+  --bs-navbar-color: #fff;
+  --bs-navbar-hover-color: rgba(255,255,255,.85);
+  --bs-navbar-brand-color: #fff;
+  --bs-navbar-brand-hover-color: rgba(255,255,255,.85);
 }
 
-/* Lesbarkeit der Navbar-Links auf farbigem Hintergrund sicherstellen */
-.navbar .navbar-brand,
-.navbar .nav-link {
-  color: #fff !important;
-}
-.navbar .nav-link:hover,
-.navbar .nav-link:focus {
-  opacity: .9;
-}
+/* Feinschliff (optional) */
+a { text-decoration-thickness: .08em; }
+a:hover { text-decoration-thickness: .12em; }
+.btn-primary { border-color: var(--bs-primary); }
