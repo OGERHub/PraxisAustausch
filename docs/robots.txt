@@ -1,1 +1,0 @@
-Sitemap: https://your-github-name.github.io/your-repo/sitemap.xml
