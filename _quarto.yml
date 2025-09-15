@@ -2,8 +2,8 @@ project:
   type: website
   output-dir: _site     # <- lokal bauen wir hierhin (nicht docs)
 
-execute:
-  freeze: auto
+# execute:
+#   freeze: false
 
 website:
   title: "your title"
