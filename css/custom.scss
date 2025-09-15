@@ -1,0 +1,39 @@
+/*-- scss:defaults --*/
+/* Compile-time Bootstrap/Bootswatch Variablen (optional, hilft Lumen die Primärfarbe zu übernehmen) */
+$primary: #FB7171;      // deine Markenfarbe
+$link-color: $primary;
+
+/*-- scss:rules --*/
+/* Runtime-Overrides mit CSS-Variablen (wirken in light & dark) */
+:root,
+:root[data-bs-theme="light"],
+.quarto-light {
+  --brand: #FB7171;            /* Primärfarbe Light */
+  --bs-primary: var(--brand);
+  --bs-link-color: var(--brand);
+}
+
+:root[data-bs-theme="dark"],
+.quarto-dark {
+  --brand: #FB7171;            /* ggf. hier andere Dark-Farbe setzen */
+  --bs-primary: var(--brand);
+  --bs-link-color: var(--brand);
+}
+
+/* Bootswatch/Lumen setzt Navbar blau hart – wir überschreiben das sicher */
+.navbar.bg-primary,
+.navbar.navbar-dark.bg-primary,
+.navbar.navbar-light.bg-primary {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+/* Lesbarkeit der Navbar-Links auf farbigem Hintergrund sicherstellen */
+.navbar .navbar-brand,
+.navbar .nav-link {
+  color: #fff !important;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  opacity: .9;
+}

@@ -39,6 +39,8 @@ website:
   #     theme: github-light       # optional
 
   navbar:
+    background: primary   # nutzt Bootstrap "primary" als Navbar-Hintergrund
+    foreground: light
     logo: images/your-logo.png
     left:
       - icon: question-square-fill
@@ -73,11 +75,11 @@ website:
 format:
   html:
     theme:
-      light: lumen
-      dark:
-        - lumen
-        - css/theme-dark.scss
-#    css: css/styles.css
+      light: [lumen, css/custom.scss]
+      # wenn du noch ein eigenes dark-Theme hattest, DEIN Override muss zuletzt kommen:
+      dark:  [lumen, css/theme-dark.scss, css/custom.scss]
+
+    css: css/styles.css
     toc: true
     code-copy: true
     code-background: true

@@ -70,3 +70,6 @@ table td, table th { border-bottom:1px solid var(--bs-border-color); padding:.4r
 /* Hinweis: Keine Fonts/Größen überschreiben – Theme behält Kontrolle */
 /* Falls dir der Textbereich zu schmal/zu breit wirkt, kannst du das hier steuern:
    main.content { max-width: 920px; }  /* <- optional; aus der großen Datei */
+
+
+}
