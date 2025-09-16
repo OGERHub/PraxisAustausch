@@ -1,3 +1,20 @@
+---
+title: "Übung 1-2"
+subtitle: "World Model"
+author: Rieke Ammoneit & Chris Reudenbach
+date: "2025-08-30"
+title-block-banner: ../images/freiraeume-sp.jpg
+title-block-banner-color: black 
+#resource-path: ["..", "images", "."]  # darf im übergeordneten Ordner suchen
+
+format-links: [html, pdf, docx]   # Link-Namen müssen den Formatkeys entsprechen
+format:
+  html: { toc: true, toc-depth: 2, code-fold: true, number-sections: false }
+  pdf:
+    pdf-engine: lualatex            # Standard-PDF (ohne Extras)
+  docx: default                  # Standard-DOCX (ohne Extras)
+---
+
 Nachdem wir nun festgestellt haben, dass der Begriff viel Theorie und Politik beinhaltet, und erfahren haben, dass ein konkretes Modell diese Diskussion vor fast genau 50 Jahren ausgelöst hat, werden wir uns mit dem *Weltmodell* befassen.
 <!--more-->
 
