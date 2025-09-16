@@ -1,4 +1,4 @@
----
+ ---
 title: ""
 comments: false
 ---
@@ -16,7 +16,10 @@ comments: false
 
 ![](images/banner.png)
 
-# Willkommen im Kurs-Template
+# Willkommen im beim Workshop des Praxisaustauschs 
+
+Es erwarten Sie:
+
 
 Alles weitere auf der [Quarto Seite](https://quarto.org/docs/websites/)
 
