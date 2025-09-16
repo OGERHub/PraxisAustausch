@@ -1,3 +1,20 @@
+---
+title: "Übung 1-3"
+subtitle: "Netlogo"
+author: Rieke Ammoneit & Chris Reudenbach
+date: "2025-08-30"
+title-block-banner: ../images/freiraeume-sp.jpg
+title-block-banner-color: black 
+#resource-path: ["..", "images", "."]  # darf im übergeordneten Ordner suchen
+
+format-links: [html, pdf, docx]   # Link-Namen müssen den Formatkeys entsprechen
+format:
+  html: { toc: true, toc-depth: 2, code-fold: true, number-sections: false }
+  pdf:
+    pdf-engine: lualatex            # Standard-PDF (ohne Extras)
+  docx: default                  # Standard-DOCX (ohne Extras)
+---
+
 Nachdem wir uns mit dem Verständnis von Nachhaltigkeit vertraut gemacht und uns mit dem systemdynamischen Weltmodell beschäftigt haben, sollte es nun noch „realer“ werden. Der systemdynamischen Modellierung fehlt dafür der Raum. Akteure (Menschen, Tiere, Pflanzen usw.) agieren und interagieren im Raum. Ich muss vor einem Baum stehen, um ihn zu fällen, oder eine Kuh muss auf der Weide stehen, um Gras zu fressen.
 Gleichzeitig ist es sehr schwierig, die Handlungen einer Kuh, beispielsweise in Bezug auf das Grasen, in eine mathematische Gleichung zu fassen. Vielmehr folgt sie Regeln (z. B. „das saftigste Gras im Umkreis von einem Meter fressen und dann weiterziehen”).
 
