@@ -1,0 +1,20 @@
+_extensions/your-org
+_extensions/your-org/course-web/
+# … weitere große/dev-Ordner, falls gewünscht …
+_site/
+docs/
+.quarto/
+.DS_Store
+scripts/
+tests/
+data_raw/
+outputs/
+_site/
+docs/
+.quarto/
+.Rproj.user/
+renv/
+venv/
+__pycache__/
+.DS_Store
+Thumbs.db
