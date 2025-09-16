@@ -18,7 +18,7 @@ format:
 
 Los geht's!
 Bevor wir uns mit der *Modellierung von Nachhaltigkeit* befassen, sollten wir zunächst klären, worum es dabei überhaupt geht.
-<!--more-->
+
 
 
 ### Das heutige Verständnis von Nachhaltigkeit
