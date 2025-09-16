@@ -14,20 +14,20 @@
          css: css/styles.css
 
    Nutzung:
-     - Markenfarbe einfach hier im $brand ändern.
+     - Markenfarbe einfach hier im $brand ändern (oder via Template-Prompt).
 
    Hinweise:
      - Wir setzen zusätzlich --bs-primary-rgb, sonst bleibt .bg-primary oft blau.
      - Wir beeinflussen nur HTML; PDF/DOCX sind unberührt.
    ========================================================================== */
 
-
 /*-- scss:defaults --*/
 /* Compile-time Fallbacks für Bootstrap/Bootswatch */
-$brand: #FB7171;     // ← HIER deine Markenfarbe eintragen
+$brand: #FB7171;     // ← wird vom Template ersetzt
+$brand-font: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif;
+
 $primary: $brand;
 $link-color: $brand;
-
 
 /*-- scss:rules --*/
 /* Light-Theme Variablen */
@@ -42,7 +42,7 @@ $link-color: $brand;
   --bs-link-hover-color: color-mix(in srgb, var(--brand) 85%, black);
 }
 
-/* Dark-Theme Variablen (ggf. eigene Dark-Markenfarbe wählen) */
+/* Dark-Theme Variablen (Dark nutzt ggf. eigenes $brand in theme-dark.scss) */
 :root[data-bs-theme="dark"],
 .quarto-dark {
   --brand: #{$brand};
@@ -66,7 +66,20 @@ $link-color: $brand;
   --bs-navbar-brand-hover-color: rgba(255,255,255,.85);
 }
 
-/* Feinschliff (optional) */
+/* Grundschrift (Brand-Font) */
+body { font-family: $brand-font; }
+
+/* Feinschliff (optional, Accessibility & UX) */
 a { text-decoration-thickness: .08em; }
 a:hover { text-decoration-thickness: .12em; }
+a:visited { color: color-mix(in srgb, var(--brand) 90%, black); }
+a:focus-visible, .btn:focus-visible {
+  outline: .18rem solid color-mix(in srgb, var(--brand) 60%, black);
+  outline-offset: .15rem;
+}
+
 .btn-primary { border-color: var(--bs-primary); }
+.btn-primary:hover {
+  background-color: color-mix(in srgb, var(--brand) 85%, black);
+  border-color: currentColor;
+}
